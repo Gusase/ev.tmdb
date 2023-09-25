@@ -1,6 +1,7 @@
 <?php
 const BASE_URL = 'http://evarody.test/mvc/';
 const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MDRiY2M3NzIxY2MzNDU4MWMzZWI2MzFiZTZjMzJmYyIsInN1YiI6IjY0ZmJiMzMwZGI0ZWQ2MTAzNDNkOWMwMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.cm-L2lIhWUqzsFtbz76RISzwPqIQXuIBjvoYACAaTwg';
+const ACC_TOKEN = '804bcc7721cc34581c3eb631be6c32fc';
 
 const DB_HOST = 'localhost';
 const DB_USER = 'root';

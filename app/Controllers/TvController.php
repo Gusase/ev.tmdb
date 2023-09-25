@@ -14,17 +14,25 @@ class TvController extends Controller
 
   public function profile($series)
   {
-    $data = $this->api('TvDetails')->getDetail($series);
+    $data = $this->model('Tv', $series);
+    $crw = $data->getCastCrew();
+    $dataDetail = $data->getDetail();
+    $this->redirectIfErr($dataDetail);
+
+    $date = Helper::airingDate($dataDetail->first_air_date, $dataDetail->first_air_date);
+
+    $this->view('components/head', ['title' => "{$dataDetail->name} (TV Series {$date->start}-{$date->last})"]);
+    $this->view('dashboard/tv/detail', ['dataTv' => $dataDetail, 'crew' => $crw->cast]);
+    $this->view('components/foot');
+  }
+
+  public function redirectIfErr(object $data): void
+  {
     if (isset($data->success) && !$data->success) {
       $this->view('components/head', ['title' => 'Page Not Found']);
       $this->view('components/404');
       $this->view('components/foot');
       exit;
     }
-    $ds = date('Y', strtotime($data->first_air_date));
-    $de = (isset($data->last_air_date) && date('Y', strtotime($data->last_air_date)) != date('Y')) ? date('Y', strtotime($data->last_air_date)) : null;
-    $this->view('components/head', ['title' => "{$data->name} (TV Series {$ds}-{$de})"]);
-    $this->view('dashboard/tv/detail',$data);
-    $this->view('components/foot');
   }
 }
